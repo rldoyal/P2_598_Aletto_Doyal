@@ -9,4 +9,4 @@ namespace P2_598_Aletto_Doyal
             Console.WriteLine("Hello World!");
         }
     }
-}
+}  
