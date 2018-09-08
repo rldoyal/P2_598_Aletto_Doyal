@@ -9,13 +9,13 @@ namespace P2_598_Aletto_Doyal
     public class OrderObject
     {
         private string senderId; //the identity of the sender
-        private int cardNo; //integer that represents a credit card number
+        private Int32 cardNo; //integer that represents a credit card number
         private string receiverId; //the identity of the receiver
-        private int amount; //represents the number of books to order
+        private Int32 amount; //represents the number of books to order
         private double unitPrice; //represents the unit price of the book received from the publisher
 
         //Constructor to be used by the encoder
-        public OrderObject(string sender, int cNum, int numBooks, double price)
+        public OrderObject(string sender, Int32 cNum, Int32 numBooks, double price)
         {
             senderId = sender;
             cardNo = cNum;
@@ -25,7 +25,7 @@ namespace P2_598_Aletto_Doyal
         }
 
         //Constructor to be used by the decoder
-        public OrderObject(string sender, int cNum, string recId, int numBooks, double price)
+        public OrderObject(string sender, Int32 cNum, string recId, Int32 numBooks, double price)
         {
             senderId = sender;
             cardNo = cNum;
@@ -47,13 +47,13 @@ namespace P2_598_Aletto_Doyal
         }
 
         //Get cardNo
-        public int getCardNo()
+        public Int32 getCardNo()
         {
             return cardNo;
         }
 
         //Set cardNo
-        public void setCardId(int c)
+        public void setCardId(Int32 c)
         {
             setCardId = c;
         }
@@ -71,13 +71,13 @@ namespace P2_598_Aletto_Doyal
         }
 
         //Get amount
-        public int getAmount()
+        public Int32 getAmount()
         {
             return amount;
         }
 
         //Set amount
-        public void setAmount(int a)
+        public void setAmount(Int32 a)
         {
             amount = a;
         }
