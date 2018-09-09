@@ -56,9 +56,9 @@ namespace P2_598_Aletto_Doyal
         }
 
         //Set cardNo
-        public void setCardId(Int32 c)
+        public void setCardNo(Int32 c)
         {
-            setCardId = c;
+            cardNo = c;
         }
 
         //Get receiverId
@@ -95,6 +95,11 @@ namespace P2_598_Aletto_Doyal
         public void setUnitPrice(double u)
         {
             unitPrice = u;
+        }
+
+        //Get timestamp
+        public DateTime getTimestamp(){
+            return timestamp;
         }
     }
 }
