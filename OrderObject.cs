@@ -13,6 +13,7 @@ namespace P2_598_Aletto_Doyal
         private string receiverId; //the identity of the receiver
         private Int32 amount; //represents the number of books to order
         private double unitPrice; //represents the unit price of the book received from the publisher
+        private DateTime timestamp; //Timestamp the order was created
 
         //Constructor to be used by the encoder
         public OrderObject(string sender, Int32 cNum, Int32 numBooks, double price)
@@ -22,16 +23,18 @@ namespace P2_598_Aletto_Doyal
             receiverId = String.Empty();
             amount = numBooks;
             unitPrice = price;
+            timestamp = DateTime.Now;
         }
 
         //Constructor to be used by the decoder
-        public OrderObject(string sender, Int32 cNum, string recId, Int32 numBooks, double price)
+        public OrderObject(string sender, Int32 cNum, string recId, Int32 numBooks, double price, DateTime now)
         {
             senderId = sender;
             cardNo = cNum;
             receiverId = recId;
             amount = numBooks;
             unitPrice = price;
+            timestamp = now;
         }
 
         //Get senderId
