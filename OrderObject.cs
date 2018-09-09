@@ -20,7 +20,7 @@ namespace P2_598_Aletto_Doyal
         {
             senderId = sender;
             cardNo = cNum;
-            receiverId = String.Empty();
+            receiverId = String.Empty;
             amount = numBooks;
             unitPrice = price;
             timestamp = DateTime.Now;
@@ -56,9 +56,9 @@ namespace P2_598_Aletto_Doyal
         }
 
         //Set cardNo
-        public void setCardId(Int32 c)
+        public void setCardNo(Int32 c)
         {
-            setCardId = c;
+            cardNo = c;
         }
 
         //Get receiverId
@@ -95,6 +95,12 @@ namespace P2_598_Aletto_Doyal
         public void setUnitPrice(double u)
         {
             unitPrice = u;
+        }
+
+        // get TimeStamp -- return as a string with format hh:mm:ss
+        public string getTimeStamp()
+        {
+            return timestamp.ToString("hh:mm:ss");
         }
     }
 }
