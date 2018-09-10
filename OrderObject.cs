@@ -20,7 +20,7 @@ namespace P2_598_Aletto_Doyal
         {
             senderId = sender;
             cardNo = cNum;
-            receiverId = String.Empty();
+            receiverId = String.Empty;
             amount = numBooks;
             unitPrice = price;
             timestamp = DateTime.Now;
