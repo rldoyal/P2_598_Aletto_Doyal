@@ -45,68 +45,84 @@ namespace P2_598_Aletto_Doyal
                 p++;
             }
 
+
             public double getPrice( )
             {
 
             }
 
             //Class used to calculate unit price of a book
-            private class PricingModel
+    public class PricingModel
+    {
+        private Int32 numOrders; //Numbers of past orders relevant in pricing model calculation
+        private Queue<OrderObject> orders; //Keeps recent orders in a queue to use in pricing model
+        private TimeSpan reference; //Time object used to determine removal of order objects from queue
+        private const double RESTOCK_AMT = 2000; //The number of books ordered when Publisher restocks books
+        private const double DEMAND = 3; //Sets demand for how many recent orders have been processed
+        private const double AVG_ORDER_SIZE = 100; //Reference for the average order size
+
+
+        public PricingModel()
+        {
+            numOrders = 0;
+            orders = new Queue<OrderObject>();
+            reference = new TimeSpan(0, 0, 3);
+        }
+
+        public double calcPrice(OrderObject o)
+        {
+            double unitPrice = 25;
+
+            //Check to see if any orders are older than the reference timespan
+            foreach (OrderObject order in orders)
             {
-                private Int32 numOrders; //Numbers of past orders relevant in pricing model calculation
-                private Queue<OrderObject> orders; //Keeps recent orders in a queue to use in pricing model
-                private DateTime reference; //Time object used to determine removal of order objects from queue
-                private const double RESTOCK_AMT = 2000; //The number of books ordered when Publisher restocks books
-                private const double DEMAND = 3; //Sets demand for how many recent orders have been processed
-                private const double AVG_ORDER_SIZE = 100; //Reference for the average order size
-
-
-                public PricingModel()
+                if (o.getTimestamp() - order.getTimestamp() > reference)
                 {
-                    numOrders = 0;
-                    orders = new Queue<OrderObject>();
-                    reference = new DateTime(0,0,0,0,0,3);
+                    orders.Dequeue();
+
                 }
-
-                public double calcPrice(OrderObject o)
-                {
-                    Int32 unitPrice = 25;
-                    
-                    //Check to see if any orders are older than the reference timespan
-                    foreach(OrderObject order in orders){
-                        if(o.getTimestamp() - order.getTimestamp() > reference){
-                            order.Dequeue();
-                            
-                        }
-                    }
-
-                    orders.Enqueue(o); //Put new order in the queue
-                    setNumOrders(); //Set the appropriate number of recent orders
-
-                    //Actual price calculation: combination of number ordered versus number left, 
-                    //demand created by recent orders, and the size of the order
-                    unitPrice += (1 - (double)o.getAmount/restockAmt) * 50 + (50 * (double)orders.Length/demand) + (50 * (2 - (double)o.getAmount()/ AVG_ORDER_SIZE));
-
-                    //Make sure 
-                    if(unitPrice > 200){
-                        unitPrice = 200;
-                    }
-                    if(unitPrice < 50){
-                        unitPrice = 50;
-                    }
-
-                    return unitPrice;
-                }
-
-                //Sets the number of orders
-                public void setNumOrders()
-                {
-                    numOrders = orders.Length;
-                }
-
-                //Increments the number of book orders by one
-
             }
+
+            orders.Enqueue(o); //Put new order in the queue
+            setNumOrders(); //Set the appropriate number of recent orders
+
+            //Actual price calculation: combination of number ordered versus number left, 
+            //demand created by recent orders, and the size of the order
+            unitPrice += (1 - ((double)o.getAmount()) / RESTOCK_AMT * 50) + (50 * ((double)orders.Count / DEMAND)) + (50 * (2 - ((double)o.getAmount() / AVG_ORDER_SIZE)));
+
+            //Make sure price is below 200 and above 50
+            if (unitPrice > 200)
+            {
+                unitPrice = 200;
+            }
+            if (unitPrice < 50)
+            {
+                unitPrice = 50;
+            }
+
+            return unitPrice;
+        }
+
+        //Sets the number of orders
+        public void setNumOrders()
+        {
+            numOrders = orders.Count;
+        }
+
+        public static void Main(string[] args)
+        {
+            DateTime now = new DateTime();
+            now = DateTime.Now;
+            PricingModel p = new PricingModel();
+
+
+            for (int i = 0; i < 5; i++)
+            {
+                OrderObject o = new OrderObject("sender" + i.ToString(), Math.Random(), "receiver" + i.ToString(), 100, 100, now);
+            }
+
+        }
+    }
             
             //Class used to instantiate threads to process orders
             private class OrderProcessing
