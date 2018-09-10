@@ -56,7 +56,7 @@ namespace P2_598_Aletto_Doyal
         }
 
         //Set cardNo
-        public void setCardId(Int32 c)
+        public void setCardNo(Int32 c)
         {
             cardNo = c;
         }
